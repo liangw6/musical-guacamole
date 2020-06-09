@@ -16,6 +16,8 @@ struct ContentView: View {
     let engine = AVAudioEngine()
     var simpleFFT: SimpleFFT = SimpleFFT()
     
+//    var simpleFFT: SimpleFFT2 = SimpleFFT2()
+    
     var body: some View {
         Button(action: {
 //          print("button was tapped")

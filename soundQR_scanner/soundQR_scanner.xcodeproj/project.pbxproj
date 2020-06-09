@@ -15,6 +15,7 @@
 		8E1B6904248F30D3003E8D29 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E1B6902248F30D3003E8D29 /* LaunchScreen.storyboard */; };
 		8E1B690C248F3171003E8D29 /* SimpleFFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1B690B248F3171003E8D29 /* SimpleFFT.swift */; };
 		8E1B690E248F4F17003E8D29 /* ResultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1B690D248F4F17003E8D29 /* ResultManager.swift */; };
+		8E1B6910248F714F003E8D29 /* SimpleFFT2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1B690F248F714F003E8D29 /* SimpleFFT2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		8E1B6905248F30D3003E8D29 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8E1B690B248F3171003E8D29 /* SimpleFFT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleFFT.swift; sourceTree = "<group>"; };
 		8E1B690D248F4F17003E8D29 /* ResultManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultManager.swift; sourceTree = "<group>"; };
+		8E1B690F248F714F003E8D29 /* SimpleFFT2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleFFT2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +46,7 @@
 		8E1B68EB248F30CF003E8D29 = {
 			isa = PBXGroup;
 			children = (
+				8E1B690F248F714F003E8D29 /* SimpleFFT2.swift */,
 				8E1B690B248F3171003E8D29 /* SimpleFFT.swift */,
 				8E1B68F6248F30CF003E8D29 /* soundQR_scanner */,
 				8E1B68F5248F30CF003E8D29 /* Products */,
@@ -155,6 +158,7 @@
 				8E1B690C248F3171003E8D29 /* SimpleFFT.swift in Sources */,
 				8E1B68F8248F30CF003E8D29 /* AppDelegate.swift in Sources */,
 				8E1B68FA248F30CF003E8D29 /* SceneDelegate.swift in Sources */,
+				8E1B6910248F714F003E8D29 /* SimpleFFT2.swift in Sources */,
 				8E1B68FC248F30CF003E8D29 /* ContentView.swift in Sources */,
 				8E1B690E248F4F17003E8D29 /* ResultManager.swift in Sources */,
 			);

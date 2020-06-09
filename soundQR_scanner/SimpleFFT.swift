@@ -79,8 +79,6 @@ class SimpleFFT {
 //                        highlights_freq = [829, 830, 831, 832, 833, 834, 835, 836, 837, 838, 839, 840, 841, 842, 843]
                         highlights_mag = Array(forwardOutputMagnitude)
                         
-                        let lowest_possible = Int(16000 * (Double(n) / sample_rate))
-                        let highest_possible = halfN - 1
 //                        for magnitude in highlights_mag[lowest_possible...highest_possible].enumerated() {
 //                            if magnitude.element > 1 {
 //                                print("\(Double(magnitude.offset + 1 + lowest_possible) * sample_rate / Double(n)) \(magnitude.element)")
