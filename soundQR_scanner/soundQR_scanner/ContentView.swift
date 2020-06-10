@@ -18,7 +18,7 @@ struct ContentView: View {
     var resultManager: ResultManager = ResultManager()
     
 //    var simpleFFT: SimpleFFT2 = SimpleFFT2()
-    let data_seq_len = 10
+    let data_seq_len = 26
     
     var body: some View {
         Button(action: {
@@ -58,7 +58,7 @@ struct ContentView: View {
             print("starting")
 
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
                 print("stopping")
                 self.endRecording()
             }
