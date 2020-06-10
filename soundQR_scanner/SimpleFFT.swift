@@ -33,7 +33,7 @@ class SimpleFFT {
     }
     
     // returns magnitudes of each bin
-    func runFFTonSignal(_ signal: [Float]) -> [Float] {
+    func runFFTonSignal(_ signal: [Float]) -> ([Double],[Double]) {
         var forwardInputReal = [Float](repeating: 0,
                                        count: halfN)
         var forwardInputImag = [Float](repeating: 0,
@@ -46,7 +46,8 @@ class SimpleFFT {
                                         count: halfN)
         
         
-        var highlights_mag = [Float](repeating: 0, count: 15)
+        var highlights_mag = [Double]()
+        var highlights_freq = [Double]()
 //        var highlights_freq = [Float](repeating: 0, count: 15)
         
         forwardInputReal.withUnsafeMutableBufferPointer { forwardInputRealPtr in
@@ -77,7 +78,7 @@ class SimpleFFT {
                         vDSP.absolute(forwardOutput, result: &forwardOutputMagnitude)
                         
 //                        highlights_freq = [829, 830, 831, 832, 833, 834, 835, 836, 837, 838, 839, 840, 841, 842, 843]
-                        highlights_mag = Array(forwardOutputMagnitude)
+//                        highlights_mag = Array(forwardOutputMagnitude)
                         
 //                        for magnitude in highlights_mag[lowest_possible...highest_possible].enumerated() {
 //                            if magnitude.element > 1 {
@@ -85,18 +86,23 @@ class SimpleFFT {
 //                            }
 //                        }
                         
-                        for magnitude in highlights_mag.enumerated() {
+                        for magnitude in forwardOutputMagnitude.enumerated() {
                             if magnitude.element > 1 {
-                                print("\(Double(magnitude.offset + 1) * sample_rate / Double(n)) \(magnitude.element)")
+                                let curr_freq = Double(magnitude.offset + 1) * sample_rate / Double(n)
+                                let curr_mag = Double(magnitude.element)
+//                                print("\(curr_freq) \(magnitude.element)")
+                                
+                                highlights_freq.append(curr_freq)
+                                highlights_mag.append(curr_mag)
                             }
                         }
-                        print()
+//                        print()
                         
                     }
                 }
             }
         }
-        return highlights_mag
+        return (highlights_freq, highlights_mag)
     }
     
 }

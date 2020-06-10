@@ -15,8 +15,10 @@ struct ContentView: View {
         
     let engine = AVAudioEngine()
     var simpleFFT: SimpleFFT = SimpleFFT()
+    var resultManager: ResultManager = ResultManager()
     
 //    var simpleFFT: SimpleFFT2 = SimpleFFT2()
+    let data_seq_len = 10
     
     var body: some View {
         Button(action: {
@@ -66,15 +68,28 @@ struct ContentView: View {
     }
     
     func gotSomeAudio(_ buffer: AVAudioPCMBuffer) {
-            var samples:[Float] = []
+        
+        var samples:[Float] = []
     //        print("framelength \(buffer.frameLength)")
-        for i in 0 ..< 1024
-            {
+        for i in 0 ..< 1024 {
                 let theSample = (buffer.floatChannelData?.pointee[i])!
                 samples.append(theSample)
             }
     //        print("input framelength \(samples.count)")
-            let magnitudeBuffer = self.simpleFFT.runFFTonSignal(samples)
+        let (hgihlight_freq, highlight_mag) = self.simpleFFT.runFFTonSignal(samples)
+        let currDataBit = resultManager.getDatabit(hgihlight_freq, highlight_mag)
+        if (!self.resultManager.detectedPreamble) {
+            self.resultManager.appendPreamble(currDataBit)
+        } else {
+            self.resultManager.appendResult(currDataBit)
+            if (self.resultManager.resultSoFar.count >= self.data_seq_len) {
+                // we've collected all data bits!
+                print("all data bits \(self.resultManager.resultSoFar)")
+                
+                // ready for next collection
+                self.resultManager.clearPreambleAndResult()
+            }
+        }
             
 //            self.leftResultBuffer.addNewResult(Array(self.magnitudeBuffer[0...6]))
 //            self.rightResultBuffer.addNewResult(Array(self.magnitudeBuffer[8...14]))
