@@ -70,12 +70,12 @@ class ResultManager: ObservableObject {
         }
         
         // sanity check with prints
-//        print("input is ...")
-//        for idx in 0...(highlight_freq.count - 1) {
-//            print("\(highlight_freq[idx]) \(highlight_mag[idx])")
-//        }
-//        print("databit is \(dataBit)")
-//        print()
+        print("input is ...")
+        for idx in 0...(highlight_freq.count - 1) {
+            print("\(highlight_freq[idx]) \(highlight_mag[idx])")
+        }
+        print("databit is \(dataBit)")
+        print()
         
         return dataBit
     }
@@ -85,21 +85,24 @@ class ResultManager: ObservableObject {
         self.resultSoFar.append(dataBit)
         if (self.resultSoFar.count >= self.data_seq_len + self.check_sum_len) {
             // checksum!!
-            let curr_sum = self.resultSoFar[0...(self.data_seq_len - 1)].reduce(0, +)
-            let curr_check_sum_string = self.resultSoFar[(self.data_seq_len)...(self.resultSoFar.count - 1)].map{String($0)}.reduce("", +)
-            let curr_check_sum = Int(curr_check_sum_string, radix: 2)!
-            print("curr result:")
-            print("result buffer \(self.resultSoFar)")
-            print("curr_sum \(curr_sum) = curr_check_sum \(curr_check_sum) is \(curr_sum == curr_check_sum)")
+            let actual_checksum_string = self.resultSoFar[0...(self.data_seq_len - 1)].map{String($0)}.reduce("", +)
+            let actual_checksum = Int(actual_checksum_string, radix: 2)! % (2^^self.check_sum_len)
             
-            if (curr_sum == curr_check_sum) {
+            let expected_checksum_string = self.resultSoFar[(self.data_seq_len)...(self.resultSoFar.count - 1)].map{String($0)}.reduce("", +)
+            let expected_checksum = Int(expected_checksum_string, radix: 2)!
+            print("curr result:")
+            print("data \(Array(self.resultSoFar[0...(self.data_seq_len - 1)]))")
+            print("checksum \(Array(self.resultSoFar[(self.data_seq_len)...(self.resultSoFar.count - 1)]))")
+            print("actual: \(actual_checksum) = expected \(expected_checksum) is \(actual_checksum == expected_checksum)")
+            
+            if (actual_checksum == expected_checksum) {
                 print("check sum succeeded!")
-                let curr_bit_string = self.resultSoFar[0...(self.data_seq_len - 1)].map{String($0)}.reduce("", +)
+//                let curr_bit_string = self.resultSoFar[0...(self.data_seq_len - 1)].map{String($0)}.reduce("", +)
                 // updating....
-                DispatchQueue.main.async {
-                    self.curr_song_name = self.data2song_name[curr_bit_string]!
-                }
-                print("curr song name is now \(self.curr_song_name)")
+//                DispatchQueue.main.async {
+//                    self.curr_song_name = self.data2song_name[curr_bit_string]!
+//                }
+//                print("curr song name is now \(self.curr_song_name)")
             }
             
             self.clearPreambleAndResult()
@@ -156,4 +159,12 @@ extension Array where Element: Comparable {
     func argmin() -> Index? {
         return indices.min(by: { self[$0] < self[$1] })
     }
+}
+
+
+// Put this at file level anywhere in your project
+precedencegroup PowerPrecedence { higherThan: MultiplicationPrecedence }
+infix operator ^^ : PowerPrecedence
+func ^^ (radix: Int, power: Int) -> Int {
+    return Int(pow(Double(radix), Double(power)))
 }

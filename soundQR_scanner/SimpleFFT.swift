@@ -22,6 +22,8 @@ class SimpleFFT {
     
     var sample_rate: Double = 44100
     
+    let print_fft_output = false
+    
     init () {
         fftSetup = vDSP.FFT(log2n: log2n,
             radix: .radix2,
@@ -90,13 +92,18 @@ class SimpleFFT {
                             if magnitude.element > 1 {
                                 let curr_freq = Double(magnitude.offset + 1) * sample_rate / Double(n)
                                 let curr_mag = Double(magnitude.element)
-//                                print("\(curr_freq) \(magnitude.element)")
+                                
+                                if self.print_fft_output {
+                                    print("\(curr_freq) \(magnitude.element)")
+                                }
                                 
                                 highlights_freq.append(curr_freq)
                                 highlights_mag.append(curr_mag)
                             }
                         }
-//                        print()
+                        if self.print_fft_output {
+                            print()
+                        }
                         
                     }
                 }

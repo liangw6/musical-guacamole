@@ -59,7 +59,7 @@ struct ContentView: View {
                 print("starting")
 
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
                     print("stopping")
                     self.endRecording()
                 }
@@ -87,28 +87,8 @@ struct ContentView: View {
             // when preamble is enabled, we can guess
             let currDataBit = resultManager.getDatabit(hgihlight_freq, highlight_mag, forceResult: true)
             self.resultManager.appendResult(currDataBit)
-            // CHANGED: below is handled by resultManager now
-//            if (self.resultManager.resultSoFar.count >= self.data_seq_len) {
-//                // we've collected all data bits!
-//                print("all data bits \(self.resultManager.resultSoFar)")
-//
-//                // ready for next collection
-//                self.resultManager.clearPreambleAndResult()
-//            }
         }
-            
-//            self.leftResultBuffer.addNewResult(Array(self.magnitudeBuffer[0...6]))
-//            self.rightResultBuffer.addNewResult(Array(self.magnitudeBuffer[8...14]))
-//
-//            if self.leftResultBuffer.passThreshold() {
-//                self.pushOrPullState = "Pull"
-//            } else if self.rightResultBuffer.passThreshold() {
-//                self.pushOrPullState = "Push"
-//            } else {
-//                self.pushOrPullState = "None"
-//            }
-
-        }
+    }
         
     func endRecording() {
         self.engine.stop()
